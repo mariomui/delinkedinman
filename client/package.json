@@ -27,10 +27,10 @@
   },
   "dependencies": {},
   "scripts": {
-    "start": "npm run build:dev && npm run webdev:dev",
+    "start": "npm run build && npm run webdev:dev",
     "webpack": "webpack",
-    "build:dev": "npm run webpack -- --env.mode development --watch",
-    "webdev": "webpack-dev-server --hot",
+    "build": "webpack",
+    "webdev": "webpack-dev-server",
     "webdev:dev": "npm run webdev"
   }
 }

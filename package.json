@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "begin": "run-p dev:**",
+    "begin": "run-p dev:*",
     "dev:start": "cd client && yarn start",
     "dev:serve": "npm run start:runServer",
-    "start:runServer": "nodemon server.js"
+    "start:runServer": "nodemon server.js",
+    "build:only": "cd client && npm run build"
   },
   "repository": "git+https://github.com/mariomui/delinkedinman.git",
   "keywords": [],
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/mariomui/delinkedinman#readme",
   "dependencies": {},
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "nodemon": "^1.19.4",
     "npm-run-all": "^4.1.5"
