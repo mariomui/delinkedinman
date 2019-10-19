@@ -1,13 +1,10 @@
-require('dotenv').config({
-	path: '../'
-});
 const path = require('path');
+require('dotenv').config({
+	path: path.resolve(__dirname, '../.env')
+});
 const webpack = require('webpack');
 
-console.log(process.env.DEV_PORT);
-
 module.exports = (proc) => {
-	console.log(proc);
 	return (
 		{
 			mode: 'development',
@@ -61,8 +58,8 @@ module.exports = (proc) => {
 
 				open: true,
 				contentBase: path.join(__dirname, 'public'),
-				port: 9002,
-				proxy: { '**': `http://localhost:4000` }
+				port: process.env.DEV_PORT,
+				proxy: { '**': `http://localhost:${process.env.EXPRESS_PORT}` }
 			}
 		}
 	)

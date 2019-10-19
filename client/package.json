@@ -25,12 +25,17 @@
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@material-ui/core": "^4.5.1",
+    "@material-ui/icons": "^4.5.1",
+    "jss": "^10.0.0",
+    "react-jss": "^10.0.0"
+  },
   "scripts": {
     "start": "npm run build && npm run webdev:dev",
     "webpack": "webpack",
     "build": "webpack",
-    "webdev": "webpack-dev-server",
+    "webdev": "webpack-dev-server --quiet",
     "webdev:dev": "npm run webdev"
   }
 }
