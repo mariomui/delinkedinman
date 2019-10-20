@@ -79,7 +79,7 @@ module.exports = (proc) => {
 				open: true,
 				contentBase: path.join(__dirname, 'public'),
 				port: process.env.DEV_PORT,
-				proxy: { 'v1': `http://localhost:${process.env.EXPRESS_PORT}` }
+				proxy: { '**': `http://127.0.0.1:${process.env.EXPRESS_PORT}` }
 				// proxy: {
 				// 	'/api': `127.0.0.1:${process.env.EXPRESS_PORT}`
 				// }

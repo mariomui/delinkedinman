@@ -1,5 +1,6 @@
 
 
 module.exports = {
-  generateRandomNumber: require('./generateRandomNumber').generateRandomNumber
+  generateRandomNumber: require('./generateRandomNumber').generateRandomNumber,
+  errorHandler: require('./errorHandler').errorHandler
 }
