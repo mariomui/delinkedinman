@@ -81,7 +81,7 @@ module.exports = (proc) => {
 				port: process.env.DEV_PORT,
 				// proxy: { '*': `http://localhost:${process.env.EXPRESS_PORT}` }
 				proxy: {
-					'/api': 'http://localhost:4000'
+					'/api': `127.0.0.1:${process.env.EXPRESS_PORT}`
 				}
 			}
 		}

@@ -7,7 +7,7 @@
     "dev": "run-p dev:**",
     "dev:start": "cd client && yarn start",
     "dev:serve": "npm run start:runServer",
-    "start:runServer": "nodemon server.js",
+    "start:runServer": "node server.js",
     "build:only": "cd client && npm run build",
     "test": "jest"
   },
