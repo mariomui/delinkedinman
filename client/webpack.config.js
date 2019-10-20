@@ -34,9 +34,26 @@ module.exports = (proc) => {
 							]
 						}
 					},
-
-					//first thing is sass,
+					{
+						test: /\.css$/,
+						use: [
+							'style-loader',
+							'css-loader'
+						]
+					},
+					{
+						test: /\.scss$/,
+						use: [
+							'style-loader',
+							'css-loader',
+							'sass-loader'
+						]
+					}
 				]
+			},
+			resolve: {
+
+				extensions: ['.js', '.jsx', '.css', '.scss'],
 			},
 			plugins: [
 				new webpack.ProgressPlugin()
@@ -62,7 +79,10 @@ module.exports = (proc) => {
 				open: true,
 				contentBase: path.join(__dirname, 'public'),
 				port: process.env.DEV_PORT,
-				proxy: { '**': `http://localhost:${process.env.EXPRESS_PORT}` }
+				// proxy: { '*': `http://localhost:${process.env.EXPRESS_PORT}` }
+				proxy: {
+					'/api': 'http://localhost:4000'
+				}
 			}
 		}
 	)

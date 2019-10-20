@@ -1,20 +1,18 @@
 import React from 'react';
-import { Layout } from './components/Layout';
+import Layout from './components/Layout';
 import { MuiThemeProvider } from "@material-ui/core/styles";
-import Test from './components/Test';
+// import Test from './components/Test';
 
+import MainPage from './Pages/MainPage'
 import theme from "./MaterialUI/theme";
 
 const App = () => {
   return (
     <div>
-
       <MuiThemeProvider theme={theme}>
         <Layout>
-          <button>dkddddjk</button>
-          <Test />
+          <MainPage />
         </Layout>
-        ee
       </MuiThemeProvider>
     </div>
   )
