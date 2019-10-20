@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/mariomui/delinkedinman#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "mongoose": "^5.7.5",
     "ngrok": "^3.2.5"
   },

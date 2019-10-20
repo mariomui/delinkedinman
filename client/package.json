@@ -37,6 +37,7 @@
     "react-jss": "^10.0.0",
     "react-router-dom": "^5.1.2"
   },
+  "proxy": 4001,
   "scripts": {
     "start": "npm run build && npm run webdev:dev",
     "webpack": "webpack",

@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+const bodyParser = require('body-parser');
+
 const mongodb = require('./db');
 
 const port = process.env.EXPRESS_PORT || 4000;
@@ -11,6 +13,10 @@ const devport = process.env.DEV_PORT || 9002;
 const v1 = express();
 // const v1routes = require('./routes/v1routes');
 
+const { json, urlencoded } = bodyParser;
+
+app.use(json());
+app.use(urlencoded({ extended: true }))
 app.use(express.static(path.resolve(__dirname, './client/public')));
 
 app.use('/v1', v1);
@@ -21,6 +27,13 @@ const protect = (req, res, next) => {
   }
   res.redirect('/')
 }
+v1.get('/generateWord', (req, res) => {
+  res.json({ hi: 'hi' })
+})
+v1.post('/test', (req, res) => {
+  console.log(req.body);
+  res.status(200);
+})
 v1.post('/create', protect, (req, res) => {
 
   const { name } = req.query;
@@ -28,17 +41,9 @@ v1.post('/create', protect, (req, res) => {
   res.status(200).send('hey')
 });
 
-app.get('/', (req, res) => {
+app.get('/stand', (req, res) => {
   res.send('Hello World!');
 });
-
-app.get('/more', (req, res) => {
-  res.send('hey');
-});
-
-app.get('/use', (req, res) => {
-  res.send('great');
-})
 
 app.listen(port, () => {
   console.log(`Production app serves out of port ${port}!`);
