@@ -1,16 +1,19 @@
 import React from 'react';
 
+// do not try to refacto this by destructuring. 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuIcon from '@material-ui/icons/Menu';
+
+import Button from '@material-ui/core/Button'
+
+
 
 import { withStyles } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -43,20 +46,30 @@ const Layout = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6">
-            Delinkedin Man
+            <span style={{ marginLeft: '111px', textTransform: 'uppercase' }}>
+              Delinkedin Man
+            </span>
           </Typography>
-          <IconButton onClick={handleMenu} color="inherit">
-            <AccountCircle />
-          </IconButton>
+          <div className={classes.layoutControlWrapper}>
+            <IconButton className={classes.accountInfo} onClick={handleMenu} color="inherit">
+              <AccountCircle />
+            </IconButton>
 
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            open={open}>
-            <MenuItem className={classes.menuitem}>Profile</MenuItem>
-            <MenuItem className={classes.menuitem}>Account</MenuItem>
-          </Menu>
+
+
+            <Button className={classes.login}> Login</Button>
+
+            <Menu
+              id="menu-appbar"
+              className={classes.menuappbar}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              open={open}>
+              <MenuItem className={classes.menuitem}>Profile</MenuItem>
+              <MenuItem className={classes.menuitem}>Account</MenuItem>
+            </Menu>
+          </div>
+
         </Toolbar>
       </AppBar>
       {props.children}

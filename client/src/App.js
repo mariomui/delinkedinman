@@ -5,6 +5,7 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 
 import MainPage from './Pages/MainPage'
 import theme from "./MaterialUI/theme";
+import './assets/global.css';
 
 const App = () => {
   return (

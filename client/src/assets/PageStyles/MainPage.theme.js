@@ -1,5 +1,4 @@
-import { flexbox } from "@material-ui/system";
-import { getThemeProps } from "@material-ui/styles";
+
 
 export const styles = (theme) => ({
   container: {
@@ -9,8 +8,8 @@ export const styles = (theme) => ({
     alignItems: 'center'
   },
   button: {
-    height: theme.spacing(.8) + 'vh',
-    width: theme.spacing(2) + 'vw',
+    height: 74 + 'px',
+    width: 233 + 'px'
 
   }
 })

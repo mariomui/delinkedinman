@@ -16,6 +16,11 @@ export default createMuiTheme({
           color: 'white'
         }
       }
+    },
+    MuiToolbar: {
+      root: {
+        height: 65 + 'px'
+      }
     }
   }
 });
