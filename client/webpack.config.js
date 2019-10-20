@@ -4,7 +4,7 @@ require('dotenv').config({
 });
 const webpack = require('webpack');
 
-module.exports = (proc) => {
+module.exports = () => {
 	return (
 		{
 			mode: 'development',

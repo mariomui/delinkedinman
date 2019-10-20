@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Mascotsvg } from '../assets/Mascotsvg'
 // do not try to refacto this by destructuring. 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,7 +16,7 @@ import Button from '@material-ui/core/Button'
 
 
 import { withStyles } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
+// import { createMuiTheme } from '@material-ui/core/styles';
 
 import { styles } from '../assets/Layouts.theme'
 
@@ -41,14 +41,19 @@ const Layout = (props) => {
   return (
     <div>
       <AppBar className={classes.appbar}>
-        <Toolbar className={classes.appbar}>
+        <Toolbar className={classes.toolbar}>
           <IconButton edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="h6">
-            <p style={{ marginLeft: '111px', textTransform: 'uppercase' }}>
-              DelinkedinMan
-            </p>
+
+            <div style={{ display: 'flex', alignItems: 'center', marginLeft: '111px', textTransform: 'uppercase' }}>
+              <Mascotsvg className={classes.mascot} />
+
+              <span>
+                &nbsp;&nbsp;&nbsp;DelinkedinMan
+              </span>
+            </div>
           </Typography>
           <div className={classes.layoutControlWrapper}>
             <IconButton className={classes.accountInfo} onClick={handleMenu} color="inherit">

@@ -26,7 +26,7 @@ const count = 35;
 
 app.use(json());
 app.use(urlencoded({ extended: true }))
-// app.use(express.static(path.resolve(__dirname, './client/public')));
+app.use(express.static(path.resolve(__dirname, './client/public')));
 
 app.use('/v1', v1);
 

@@ -6,10 +6,6 @@ export const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  button: {
-    height: 74 + 'px',
-    width: 233 + 'px'
-
   }
+
 })

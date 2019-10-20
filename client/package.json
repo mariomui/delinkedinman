@@ -41,7 +41,7 @@
     "start": "npm run build && npm run webdev:dev",
     "webpack": "webpack",
     "build": "webpack",
-    "webdev": "webpack-dev-server --quiet",
+    "webdev": "webpack-dev-server",
     "webdev:dev": "npm run webdev"
   }
 }

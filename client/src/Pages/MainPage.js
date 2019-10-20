@@ -1,9 +1,10 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import { Container } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles'
 import { IntroText } from '../components/IntroText';
 import Grid from '@material-ui/core/Grid';
+import GenerateButton from './GenerateButton'
 // import Dialog from '@material-ui/core/Dialog';
 
 
@@ -21,7 +22,8 @@ const MainPage = (props) => {
           alignItems="center"
         >
           <IntroText />
-          <Button className={classes.button}> Generate</Button>
+          {/* <Button className={classes.button}> Generate</Button> */}
+          <GenerateButton />
         </Grid>
       </Container>
     </div>

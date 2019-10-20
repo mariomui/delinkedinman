@@ -4,7 +4,7 @@ import React from 'react';
 
 import HomePage from './Pages/HomePage'
 // import Modal from './components/Modal'
-import HelloView from './Pages/HelloView'
+// import HelloView from './Pages/HelloView'
 // import './assets/global.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -17,13 +17,13 @@ const App = () => {
           <Route exact path='/'
             component={HomePage}
           />
-          <Route path='/nope'
-            component={HelloView}
-          /> */
+          {/* <Route path='/nope'
+            component={Modal}
+          /> */}
         </Switch>
       </Router>
       {/* </MuiThemeProvider> */}
-    </div>
+    </div >
   )
 }
 

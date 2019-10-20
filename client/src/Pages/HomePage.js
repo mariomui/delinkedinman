@@ -1,11 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Layout from '../components/Layout';
 import MainPage from './MainPage';
 
 const HomePage = () => {
   return (
     <div>
-
       <Layout>
         <MainPage />
       </Layout>

@@ -1,10 +1,18 @@
+
+
 let top = 3 + 'px'
 let left = top;
 
 export const styles = (theme) => ({
   appbar: {
+
+    backgroundColor: '#2196F3',
+    overflow: 'hidden',
+  },
+  toolbar: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    border: '1px solid white'
   },
   menuitem: {
     minWidth: `${theme.spacing(1.3)}vw`
@@ -24,9 +32,9 @@ export const styles = (theme) => ({
   },
   login: {
     position: 'absolute',
-    height: 30 + 'px',
+    height: 45 + 'px',
     width: 120 + 'px',
-    top,
+    top: 0 + 'px',
     left,
     padding: '0'
   }
