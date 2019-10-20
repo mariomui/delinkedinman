@@ -4,6 +4,8 @@ import { Container } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles'
 import { IntroText } from '../components/IntroText';
 import Grid from '@material-ui/core/Grid';
+// import Dialog from '@material-ui/core/Dialog';
+
 
 import { styles } from '../assets/PageStyles/MainPage.theme'
 

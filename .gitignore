@@ -62,3 +62,4 @@ typings/
 
 public/*
 !public/index.html
+bundle.js

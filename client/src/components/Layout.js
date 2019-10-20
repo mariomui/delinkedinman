@@ -46,9 +46,9 @@ const Layout = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6">
-            <span style={{ marginLeft: '111px', textTransform: 'uppercase' }}>
-              Delinkedin Man
-            </span>
+            <p style={{ marginLeft: '111px', textTransform: 'uppercase' }}>
+              DelinkedinMan
+            </p>
           </Typography>
           <div className={classes.layoutControlWrapper}>
             <IconButton className={classes.accountInfo} onClick={handleMenu} color="inherit">

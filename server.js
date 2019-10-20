@@ -26,7 +26,7 @@ const count = 35;
 
 app.use(json());
 app.use(urlencoded({ extended: true }))
-app.use(express.static(path.resolve(__dirname, './client/public')));
+// app.use(express.static(path.resolve(__dirname, './client/public')));
 
 app.use('/v1', v1);
 
@@ -128,6 +128,9 @@ v1.post('/user', protect, (req, res) => {
   res.status(200).send('hey')
 });
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/public/index.html'))
+})
 app.listen(port, () => {
   console.log(`Production app serves out of port ${port}!`);
   console.log(`Development serves out fo port ${devport}`);
