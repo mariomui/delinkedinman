@@ -4,7 +4,7 @@ const { dbPort, dbName } = dbConfig;
 
 const schemas = require('./schemas');
 
-const { userSchema } = schemas;
+const { userSchema, dictSchema } = schemas;
 
 
 mongoose.connect(`mongodb://localhost:${dbPort}/${dbName}`, {
@@ -12,9 +12,15 @@ mongoose.connect(`mongodb://localhost:${dbPort}/${dbName}`, {
   useUnifiedTopology: true
 })
 let UserSchema = new mongoose.Schema(userSchema);
+let DictSchema = new mongoose.Schema(dictSchema);
+
+// dictSchema.index({ difficulty: 1, start: 1 }, { unique: true });
 
 const UserModel = mongoose.model('Users', UserSchema);
+const DictModel = mongoose.model('Dicts', DictSchema);
 
+
+//User functions.
 const createUser = name => UserModel
   .create({ name })
   .then((data) => {
@@ -23,13 +29,35 @@ const createUser = name => UserModel
   .catch(console.log);
 
 const findUserByName = name => UserModel
-  .findOne({ name })
+  .findOne({ name }).exec()
   .then((data) => data);
+
+//Dict functions
+const createDict = ({ difficulty, start, words }) => {
+  const data = {
+    difficulty, start, words
+  };
+  return DictModel.create(data);
+}
+
+const findDict = ({ difficulty, start }) => {
+  const data = { difficulty, start };
+
+  return DictModel.findOne(data).exec();
+}
+
+
+
 
 module.exports = {
   createUser,
   userSchema,
   UserModel,
-  findUserByName
+  DictModel,
+  findUserByName,
+  Dict: {
+    createDict,
+    findDict
+  }
 }
 
