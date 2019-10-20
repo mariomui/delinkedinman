@@ -9,7 +9,9 @@
     "dev:serve": "npm run start:runServer",
     "start:runServer": "node server.js",
     "build:only": "cd client && npm run build",
-    "test": "jest"
+    "test": "jest",
+    "ngrok": "ngrok",
+    "productiontest": "node ngrok.js"
   },
   "repository": "git+https://github.com/mariomui/delinkedinman.git",
   "keywords": [],
@@ -20,7 +22,8 @@
   },
   "homepage": "https://github.com/mariomui/delinkedinman#readme",
   "dependencies": {
-    "mongoose": "^5.7.5"
+    "mongoose": "^5.7.5",
+    "ngrok": "^3.2.5"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
