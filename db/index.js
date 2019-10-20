@@ -6,10 +6,11 @@ const schemas = require('./schemas');
 
 const { userSchema } = schemas;
 
-mongoose.connect(`mongodb://localhost:${dbPort}/${dbName}`), {
+
+mongoose.connect(`mongodb://localhost:${dbPort}/${dbName}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}
+})
 let UserSchema = new mongoose.Schema(userSchema);
 
 const UserModel = mongoose.model('Users', UserSchema);

@@ -1,7 +1,7 @@
 # delinkedinman
 Sample reach project utilizing a guessing game.
 
-## vanilla webpack build
+## Starting the app
 
 `npm run begin`
 This will bundle all your compoenents into bundle.js
