@@ -12,6 +12,9 @@ export default createMuiTheme({
           backgroundColor: "green"
         }
       }
+    },
+    MuiAppBar: {
+
     }
   }
 });
