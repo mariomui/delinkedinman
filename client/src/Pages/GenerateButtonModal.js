@@ -49,16 +49,18 @@ class GenerateButtonModal extends Component {
     })
   }
 
-  saveAndClose = () => {
+  handleSubmit = () => {
     const { handleClose, handleSave } = this.props;
     const { difficulty } = this.state;
-    handleSave(difficulty * 1);
+    setTimeout(() => {
+      this.handleClose();
+    }, 2000)
+    handleSave(this.state.difficulty)
 
   }
 
   render() {
-    const { handleClose, open } = this.props
-    const { classes } = this.props;
+    const { classes, handleSave, handleClose, open } = this.props
     return (
       <div style={{ width: '100%' }}>
 
@@ -97,7 +99,7 @@ class GenerateButtonModal extends Component {
             </h2>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.saveAndClose} color="primary">
+            <Button onClick={this.handleSubmit} color="primary">
               Save changes
             </Button>
 

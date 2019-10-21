@@ -21,13 +21,14 @@ class MainPage extends Component {
       hasGameStarted: false,
       gameType: ''
     }
-    this.handleSave = this.handleSave.bind(this);
   }
 
-  handleSave = ({ difficulty, gameType }) => {
+  handleSave = (difficulty) => {
 
     this.setState({
-      difficulty, gameType
+      difficulty,
+    }, () => {
+      return true;
     })
   }
 

@@ -1,5 +1,7 @@
 # delinkedinman
 Sample reach project utilizing a guessing game.
+https://www.figma.com/file/HjvX2PLt5FSch39jNReD1f/LinkedMan
+UI pre-work
 
 ## Section: Running the Repo
 stack: mongo, express, mongoose, React
@@ -17,7 +19,7 @@ in the root of app, set up a .env file that contains
   * DB_NAME ....
   * [ ] <strike>DB_CONNECTION_STRING</strike>
 ### step 2 Setup Your server envs
-`npm run begin`
+`npm run dev`
 * development server listens on 9002. 
   * `.env => DEV_PORT=<custom port>`
 * Your code will liveReload there but not HMR.
@@ -199,3 +201,7 @@ Gotchas
     * [ ] figma
   * [ ] settings
   * [ ] 
+
+
+# problems
+Deciding to do webpack and material ui from scratch was not great for the timeline. Both seem to have some minor changes to their documentation. My postman hits my endpoints just fine but it I cant ssem to do a simple axios call on a button.
