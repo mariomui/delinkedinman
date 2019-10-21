@@ -1,12 +1,13 @@
-import { call } from './RequestEngine';
-import ClientLib from './ClientLibrary'
+import call from './RequestEngine';
+// import ClientLib from './ClientLibrary/'
+import ClientLib from '../ClientEngine/ClientLibrary'
 class Clientgame {
   constructor(difficulty) {
     this.difficulty = difficulty
     this._count = 35;
   }
   getDictOffset() {
-    return ClientLib.generateRandomNumber(0, 16000);
+    return ClientLib.generateRandomNumber(0, 1000);
   }
   populate(ruleset) {
     ruleset.count = this._count;
@@ -15,33 +16,25 @@ class Clientgame {
   }
 
   getWord(difficulty) {
-    const getRuleset = (difficulty) => {
-      return new Promise((resolve, reject) => {
-        let ruleset = ClientLib.getRulesetBasedOnDifficulty(difficulty);
-        return resolve(ruleset);
+    let ruleset = ClientLib.getRulesetBasedOnDifficulty(difficulty);
+    let fullRuleset = this.populate(ruleset);
+    console.log(fullRuleset)
+    return call.mySelf({
+      url: '/generateWord',
+      params: fullRuleset
+    })
+      .then((response) => {
+        let { data } = response;
+        if (data.words.length) {
+          console.log('data', data)
+          return ClientLib.getOne(data.words)
+        } else {
+          return null;
+        }
       })
-    }
-    getRuleset(difficulty)
-      .then((answer) => {
-        debugger
-        console.log(answer);
-      })
+      .catch(console.log);
   }
-  //   let fullRuleset = this.populate(ruleset);
-  //   return call.mySelf({
-  //     url: '/generateWord',
-  //     params: fullRuleset
-  //   })
-  //     .then((data) => {
-  //       if (data.length) {
-  //         return ClientLib.getOneWord(data)
-  //       } else {
-  //         return null;
-  //       }
-  //     })
-  //     .catch(console.log);
-  // }
-
 }
 
-export { Clientgame }
+
+export default Clientgame

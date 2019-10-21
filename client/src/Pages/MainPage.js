@@ -6,8 +6,9 @@ import { IntroText } from '../components/IntroText';
 import Grid from '@material-ui/core/Grid';
 import GenerateButton from './GenerateButton'
 // import Dialog from '@material-ui/core/Dialog';
-
-
+import axios from 'axios';
+import Phone from '../ClientEngine/RequestEngine'
+import Clientgame from '../ClientEngine/Clientgame'
 import { styles } from '../assets/PageStyles/MainPage.theme'
 
 class MainPage extends Component {
@@ -25,11 +26,20 @@ class MainPage extends Component {
 
   handleSave = (state) => {
     const { difficulty, gameType } = state;
+
+    let Game = new Clientgame(Number(state.difficulty));
+    let pSecretWord = Game.getWord(6)
+    let secretWord = pSecretWord;
+
     this.setState({
       difficulty,
       gameType,
-      hasGameStarted: true
+      hasGameStarted: true,
+      secretWord
     })
+
+
+
   }
 
   reset = () => {

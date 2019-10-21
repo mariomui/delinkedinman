@@ -41,12 +41,14 @@ const generateRandomNumber = (low, high) => {
   return Math.floor(Math.random() * (high - low + 1) + low);
 }
 
-const getOneWord = (words) => {
-  return words[generateRandomNumber(0, words.length - 1)]
+const getOne = (words) => {
+  let num = generateRandomNumber(0, (words.length - 1))
+  console.log(words, 'words');
+  return words[2];
 }
-export {
+export default {
   getRulesetBasedOnDifficulty,
   generateRandomNumber,
-  getOneWord
+  getOne
 }
 

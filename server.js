@@ -67,7 +67,7 @@ v1.get('/generateWord', datacenter.queryTests, (req, res) => {
                 .then((dictCreationReceipt) => {
                   if (dictCreationReceipt) {
                     //Resources Created
-                    res.status(201).send(data['data']);
+                    res.status(200).send({ words });
                   } else {
                     // Database error.
                     res.sendStatus(400);
