@@ -31,7 +31,7 @@ class GenerateButtonModal extends Component {
     e.preventDefault();
     let num = document.querySelector('input[name=targetInput]').value;
     this.setState({
-      difficulty: num
+      difficulty: num * 1
     })
   }
 
@@ -50,9 +50,10 @@ class GenerateButtonModal extends Component {
   }
 
   saveAndClose = () => {
-    // this.props.handleSave(this.state)
-    this.props.handleClose()
-    this.props.handleSave(this.state);
+    const { handleClose, handleSave } = this.props;
+    const { difficulty } = this.state;
+    handleSave(difficulty * 1);
+
   }
 
   render() {

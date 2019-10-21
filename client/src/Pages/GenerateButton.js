@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import GenerateButtonModal from './GenerateButtonModal'
-
+import { Phone } from '../ClientEngine/RequestEngine'
 const styles = theme => ({
   root: {
     margin: 0,
@@ -32,23 +32,22 @@ class GenerateButton extends Component {
       hasGameStarted: false
     }
   }
+
   handleClickOpen = () => {
     this.setState({
       open: !this.state.open
     })
   };
+
   handleClose = () => {
     this.setState({
       open: !this.state.open
     })
   };
 
-  handleSave = (state) => {
-    const { difficulty } = state;
+  handleSave = ({ difficulty }) => {
     this.setState({
-      difficulty,
-      gameType: 'wheel',
-      hasGameStarted: true
+      difficulty
     })
   }
 
@@ -59,15 +58,13 @@ class GenerateButton extends Component {
       <div>
         {/* This is the button for the front page */}
         {/* {If game has started hide this generate button} */}
-        {!this.state.hasGameStarted ?
-          <Button className={classes.butter} variant="outlined" color="primary" onClick={this.handleClickOpen}>
-            Generate
-        </Button> : null}
+        {/* {!this.state.hasGameStarted ? */}
+        <Button className={classes.butter} variant="outlined" color="primary" onClick={this.handleClickOpen}>
+          Generate
+        </Button>
 
-        {/* This is the modal */}
         <GenerateButtonModal onClick={this.handleClickOpen} handleSave={this.handleSave} handleClose={this.handleClose} open={this.state.open} />
-      </div >
-    )
+      </div >)
   }
 }
 

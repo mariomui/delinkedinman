@@ -53,7 +53,7 @@ module.exports = () => {
 			},
 			resolve: {
 
-				extensions: ['.js', '.jsx', '.css', '.scss'],
+				extensions: ['.js', 'scss'],
 			},
 			plugins: [
 				new webpack.ProgressPlugin()
@@ -77,12 +77,12 @@ module.exports = () => {
 			devServer: {
 
 				open: true,
-				contentBase: path.resolve(__dirname, '/public'),
+				contentBase: path.resolve(__dirname, './public'),
 				port: process.env.DEV_PORT,
-				proxy: { '**': `http://127.0.0.1:${process.env.EXPRESS_PORT}` }
-				// proxy: {
-				// 	'/api': `127.0.0.1:${process.env.EXPRESS_PORT}`
-				// }
+				// proxy: { '**': `http://localhost:${process.env.EXPRESS_PORT}` }
+				proxy: {
+					'**': `http://localhost:${process.env.EXPRESS_PORT}`
+				}
 			}
 		}
 	)

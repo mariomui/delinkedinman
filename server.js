@@ -113,7 +113,7 @@ v1.get('/testFind', (req, res) => {
 })
 
 v1.get('/test', (req, res) => {
-  res.send(200).send('done');
+  res.send(200).json('done');
 })
 
 v1.post('/test', (req, res) => {

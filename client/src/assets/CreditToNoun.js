@@ -1,16 +1,16 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const CreditItem = (props) => {
   const { credit } = props;
   return (
-    <Fragment>
+    <div>
       <p>
         {/* <text x="0" y="81" fill="#000000" fontSize="5px" fontWeight="bold" fontFamily="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"> */}
         {credit}
         {/* </text> */}
       </p>
 
-    </Fragment>
+    </div>
   )
 }
 
