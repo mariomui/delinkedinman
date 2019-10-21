@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-// import Button from '@material-ui/core/Button';
+import React, { Component, Fragment } from 'react';
+import Button from '@material-ui/core/Button';
 import { Container } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles'
 import { IntroText } from '../components/IntroText';
@@ -23,19 +23,30 @@ class MainPage extends Component {
     }
   }
 
-  handleSave = (difficulty) => {
-
+  handleSave = (state) => {
+    const { difficulty, gameType } = state;
     this.setState({
       difficulty,
-    }, () => {
-      return true;
+      gameType,
+      hasGameStarted: true
+    })
+  }
+
+  reset = () => {
+    this.setState({
+      hasGameStarted: false
     })
   }
 
   render() {
     const { classes } = this.props
+
+    let greet = <IntroText />
+    let greetButton = <GenerateButton handleSave={this.handleSave} />
+    let reset = <Button onClick={this.reset}>Reset</Button>
     return (
       <div>
+
         <Container className={classes.container} >
           <Grid
             container
@@ -43,9 +54,11 @@ class MainPage extends Component {
             justify="center"
             alignItems="center"
           >
-            <IntroText />
+            {this.state.hasGameStarted ? reset : null}
+
             {/* <Button className={classes.button}> Generate</Button> */}
-            <GenerateButton handleSave={this.handleSave} />
+            {!this.state.hasGameStarted ? greet : null}
+            {!this.state.hasGameStarted ? greetButton : null}
           </Grid>
 
         </Container>

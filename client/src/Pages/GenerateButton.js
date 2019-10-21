@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import GenerateButtonModal from './GenerateButtonModal'
-import { Phone } from '../ClientEngine/RequestEngine'
+import Phone from '../ClientEngine/RequestEngine'
+import axios from 'axios';
+
 const styles = theme => ({
   root: {
     margin: 0,
@@ -29,7 +31,8 @@ class GenerateButton extends Component {
       secretWord: '',
       currentWordView: [],
       open: false,
-      hasGameStarted: false
+      hasGameStarted: false,
+      gameStateSaved: false,
     }
   }
 
@@ -45,25 +48,29 @@ class GenerateButton extends Component {
     })
   };
 
-  handleSave = ({ difficulty }) => {
-    this.setState({
-      difficulty
-    })
-  }
+  // handleSave = (difficulty) => {
+  //   this.setState({
+  //     difficulty,
+  //     gameStateSaved: true
+  //   }, () => {
+  //     this.handleClose()
+  //   })
+  // }
+
 
   render() {
-    const { classes } = this.props;
-
+    const { classes, handleSave } = this.props;
+    const greetingButton = (<Button className={classes.butter} variant="outlined" color="primary" onClick={this.handleClickOpen}>
+      Generate
+  </Button>);
     return (
       <div>
         {/* This is the button for the front page */}
         {/* {If game has started hide this generate button} */}
         {/* {!this.state.hasGameStarted ? */}
-        <Button className={classes.butter} variant="outlined" color="primary" onClick={this.handleClickOpen}>
-          Generate
-        </Button>
+        {!this.state.gameStateSaved ? greetingButton : null}
 
-        <GenerateButtonModal onClick={this.handleClickOpen} handleSave={this.handleSave} handleClose={this.handleClose} open={this.state.open} />
+        <GenerateButtonModal onClick={this.handleClickOpen} handleSave={handleSave} handleClose={this.handleClose} open={this.state.open} />
       </div >)
   }
 }

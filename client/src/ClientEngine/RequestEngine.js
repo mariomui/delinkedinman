@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const mySelf = axios.create({
-  baseURL: 'http://localhost:3456',
+  baseURL: '/v1',
 })
 
 const linkedIn = axios.create({
@@ -9,8 +9,6 @@ const linkedIn = axios.create({
 })
 
 export default {
-  Phone: {
-    mySelf,
-    linkedIn
-  }
+  mySelf,
+  linkedIn
 }

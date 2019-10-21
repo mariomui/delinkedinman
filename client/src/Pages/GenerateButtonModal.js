@@ -37,7 +37,6 @@ class GenerateButtonModal extends Component {
 
   handleSelect = (e) => {
     e.preventDefault()
-    console.log(e);
     e.target.style = `border: 2px solid #dadada; border-radius: 20% 20%`;
     if (this.state.toggle) {
       e.target.style.background = '#C4E4FF';
@@ -49,13 +48,14 @@ class GenerateButtonModal extends Component {
     })
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault()
     const { handleClose, handleSave } = this.props;
-    const { difficulty } = this.state;
-    setTimeout(() => {
-      this.handleClose();
-    }, 2000)
-    handleSave(this.state.difficulty)
+    const { difficulty, gameType } = this.state;
+    // setTimeout(() => {
+    //   this.handleClose();
+    // }, 2000)
+    handleSave({ difficulty, gameType })
 
   }
 
