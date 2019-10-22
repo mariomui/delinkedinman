@@ -21,6 +21,6 @@ export default createMuiTheme({
       root: {
         height: 65 + 'px'
       }
-    }
+    },
   }
 });

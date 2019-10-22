@@ -5,14 +5,15 @@ import { withStyles } from '@material-ui/styles'
 import { IntroText } from '../components/IntroText';
 import Grid from '@material-ui/core/Grid';
 import GenerateButton from './GenerateButton'
-// import Dialog from '@material-ui/core/Dialog';
-// import axios from 'axios';
-// import Phone from '../ClientEngine/RequestEngine'
+import Board from '../components/WheelUI/Board'
+
 import Clientgame from '../ClientEngine/Clientgame'
 import { styles } from '../assets/PageStyles/MainPage.theme'
 
 import Player from '../ClientEngine/Player'
 import { errorHandler } from '../ClientEngine/ClientLibrary/errorHandler';
+
+
 class MainPage extends Component {
   constructor(props) {
     super(props);
@@ -89,7 +90,7 @@ class MainPage extends Component {
 
   render() {
     const { classes } = this.props
-
+    let { currentWordView } = this.state;
     let greet = <IntroText />
     let greetButton = <GenerateButton handleSave={this.handleSave} />
     let reset = <Button onClick={this.reset}>Reset</Button>
@@ -103,6 +104,7 @@ class MainPage extends Component {
             justify="center"
             alignItems="center"
           >
+            {this.state.hasGameStarted ? <Board currentWordView={currentWordView} /> : null}
             {this.state.hasGameStarted ? reset : null}
 
             {/* <Button className={classes.button}> Generate</Button> */}

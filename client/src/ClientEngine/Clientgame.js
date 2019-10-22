@@ -13,7 +13,7 @@ class Clientgame {
       difficulty: state.difficulty,
       currentStages: 7, //TODO set these according to gametype
       gameType: state.gameType,
-      currentWordView: null,
+      currentWordView: [],
       gameNo: 0,
       stateChanger,
     }];
@@ -24,7 +24,7 @@ class Clientgame {
       difficulty: state.difficulty,
       currentStages: 7, //TODO set these according to gametype
       gameType: null,
-      currentView: null,
+      currentWordView: [],
       gameNo: 0,
       stateChanger,
     }
@@ -134,8 +134,9 @@ class Clientgame {
   submitChar(guess) {
     if (this.isCharGood(guess)) {
       //update game worldview
-      this._updateCurrentWordView()
-      console.log('yeah');
+      let updateds = this.stripWordView(guess);
+      this._updateCurrentWordView(updateds)
+      //TODO make a global syncing class.
       //condition that guess is correct
     } else {
       //condition that guess is wrong
@@ -147,12 +148,21 @@ class Clientgame {
   isCharGood(guess) {
     return !!(this.currentGame.currentWordView.includes(guess));
   }
-
-  _updateCurrentWordView() {
+  stripWordView(guess) {
     let currentWordView = this.currentGame.currentWordView;
-    console.log(currentWordView, 'dkjfkdj')
-    this._gameObjects[this.latestGameId].currentWordView = currentWordView;
-    this.stateChanger({ currentWordView });
+    for (let i = 0; i < currentWordView.length; i++) {
+      if (currentWordView[i] === guess) {
+        currentWordView[i] = '~';
+      }
+    }
+
+    return currentWordView;
+  }
+  _updateCurrentWordView(updateds) {
+
+    ClientLib.errorHandler(JSON.stringify(updateds), 'this is the currentWordview');
+    this._gameObjects[this.latestGameId].currentWordView = updateds;
+    this.stateChanger({ currentWordView: updateds });
   }
   //this function is not used or ready for primetime.
   cloneGameObject(gameObject) {
