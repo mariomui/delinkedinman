@@ -20,23 +20,37 @@ class MainPage extends Component {
       secretWord: '',
       currentWordView: [],
       hasGameStarted: false,
-      gameType: ''
+      gameType: '',
+      loggedIn: false,
     }
   }
-
+  stateChanger = state => {
+    this.setState(state);
+  }
   handleSave = (state) => {
     const { difficulty, gameType } = state;
-
-    let Game = new Clientgame(Number(state.difficulty));
+    let Game = null;
+    if (!this.state.loggedIn) {
+      Game = new Clientgame(Number(state.difficulty), null, this.stateChanger);
+    } else {
+      // TODO when you actuall have a loggedIn logic.
+      return null
+    }
     let pSecretWord = Game.getWord(6)
-    let secretWord = pSecretWord;
+    pSecretWord
+      .then((secretWord) => {
+        let gameState = {
+          difficulty,
+          gameType,
+          hasGameStarted: true,
+          secretWord,
+          currentWordView: secretWord.split(''),
+        }
 
-    this.setState({
-      difficulty,
-      gameType,
-      hasGameStarted: true,
-      secretWord
-    })
+        this.setState(gameState)
+      });
+
+
 
 
 

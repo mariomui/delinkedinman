@@ -1,3 +1,5 @@
+import { errorHandler } from './errorHandler';
+
 const getRulesetBasedOnDifficulty = (difficulty) => {
   let ruleset = {};
 
@@ -49,6 +51,7 @@ const getOne = (words) => {
 export default {
   getRulesetBasedOnDifficulty,
   generateRandomNumber,
-  getOne
+  getOne,
+  errorHandler
 }
 
