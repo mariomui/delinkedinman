@@ -6,15 +6,18 @@ import { IntroText } from '../components/IntroText';
 import Grid from '@material-ui/core/Grid';
 import GenerateButton from './GenerateButton'
 // import Dialog from '@material-ui/core/Dialog';
-import axios from 'axios';
-import Phone from '../ClientEngine/RequestEngine'
+// import axios from 'axios';
+// import Phone from '../ClientEngine/RequestEngine'
 import Clientgame from '../ClientEngine/Clientgame'
 import { styles } from '../assets/PageStyles/MainPage.theme'
 
+import Player from '../ClientEngine/Player'
+import { errorHandler } from '../ClientEngine/ClientLibrary/errorHandler';
 class MainPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      count: 35,
       difficulty: 2,
       currentStages: 7,
       secretWord: '',
@@ -22,37 +25,59 @@ class MainPage extends Component {
       hasGameStarted: false,
       gameType: '',
       loggedIn: false,
+      PlayerInstance: null,
+      GameInstance: null
     }
+  }
+  componentDidMount() {
+    if (!this.state.PlayerInstance) {
+      this.setState({
+        PlayerInstance: new Player({ name: 'Mario', GameInstance: null })
+      });
+    } else {
+      console.log('you atually have a player?');
+      if (this.state.GameInstance) {
+        Player.setGameInstance(this.state.Game);
+      }
+    }
+  }
+  componentDidUpdate() {
+    console.log('updating');
   }
   stateChanger = state => {
     this.setState(state);
   }
   handleSave = (state) => {
-    const { difficulty, gameType } = state;
     let Game = null;
-    if (!this.state.loggedIn) {
-      Game = new Clientgame(Number(state.difficulty), null, this.stateChanger);
+    let PlayerInstance = null;
+    //initialize Game from frontend.
+    if (!this.state.loggedIn || !this.state.PlayerInstance) {
+      const gameObject = { difficulty: Number(state.difficulty), gameType: state.gameType }
+      Game = new Clientgame(gameObject, null, this.stateChanger);
+      PlayerInstance = new Player({ name: 'mario', GameInstance: Game });
+      console.log('did i reach here');
+      state.PlayerInstance = PlayerInstance;
+      window.Player = PlayerInstance;
     } else {
       // TODO when you actuall have a loggedIn logic.
-      return null
+      errorHandler(null, "you were logged in? you shouldn't be");
+
     }
-    let pSecretWord = Game.getWord(6)
+    let pSecretWord = Game.getWord(state)
     pSecretWord
       .then((secretWord) => {
+        console.log(secretWord)
         let gameState = {
-          difficulty,
-          gameType,
+          difficulty: state.difficulty,
+          gameType: state.gameType,
           hasGameStarted: true,
           secretWord,
           currentWordView: secretWord.split(''),
+          GameInstance: Game
         }
-
+        gameState.PlayerInstance = PlayerInstance;
         this.setState(gameState)
       });
-
-
-
-
 
   }
 

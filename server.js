@@ -48,7 +48,7 @@ v1.get('/generateWord', datacenter.queryTests, (req, res) => {
   if (!options) res.sendStatus(404)
 
   let { difficulty, start } = options;
-
+  console.log(options, 'options')
   mongodb.Dict
     .findDict({ difficulty, start })
     .then((found) => {
@@ -70,7 +70,7 @@ v1.get('/generateWord', datacenter.queryTests, (req, res) => {
                     res.status(200).send({ words });
                   } else {
                     // Database error.
-                    res.sendStatus(400);
+                    res.status(400).send('could not cache this');
                   }
                 }).catch((error) => {
                   // server fail error

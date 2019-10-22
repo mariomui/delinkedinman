@@ -1,42 +1,45 @@
 import call from './RequestEngine';
-import { errorHandler } from '../ClientEngine/ClientLibrary/'
 import ClientLib from '../ClientEngine/ClientLibrary'
+
 class Clientgame {
-  constructor(difficulty, playerInfoObject = null, stateChanger) {
-    this.difficulty = difficulty
+  constructor(state, playerInfoObject = null, stateChanger) {
+    this.difficulty = state.difficulty;
     this._count = 35;
+    this.latestGameId = 0;// real hacky her
+    this.stateChanger = stateChanger
     this._gameObjects = [{
       playerInfoObject,
       secretWord: null,
-      difficulty,
+      difficulty: state.difficulty,
       currentStages: 7, //TODO set these according to gametype
-      gameType: null,
-      currentView: null,
+      gameType: state.gameType,
+      currentWordView: null,
       gameNo: 0,
-      stateChanger
+      stateChanger,
     }];
+    this.currentGame = this._gameObjects[this.latestGameId];
+
     this._emptyGameObject = {
       playerInfoObject,
-      secretWord: null,
-      difficulty,
+      difficulty: state.difficulty,
       currentStages: 7, //TODO set these according to gametype
       gameType: null,
       currentView: null,
       gameNo: 0,
-      stateChanger
+      stateChanger,
     }
   }
   getDictOffset() {
     return ClientLib.generateRandomNumber(0, 1000);
   }
-  populate(ruleset) {
+  populate = (ruleset) => {
     ruleset.count = this._count;
     ruleset.start = this.getDictOffset();
     return ruleset;
   }
 
-  getWord(difficulty) {
-    let ruleset = ClientLib.getRulesetBasedOnDifficulty(difficulty);
+  getWord(state) {
+    let ruleset = ClientLib.getRulesetBasedOnDifficulty(state.difficulty);
     let fullRuleset = this.populate(ruleset);
 
     return call.mySelf({
@@ -50,28 +53,36 @@ class Clientgame {
 
           let secretWord = ClientLib.getOne(data.words)
 
-          this._updateOrCreateGameObject({ secretWord });
+          this._updateOrCreateGameObject({
+            secretWord: secretWord,
+          });
           return secretWord;
         } else {
           return null;
         }
       })
-      .catch(console.log);
+      .catch((err) => {
+        ClientLib.errorHandler(err, 'could not generate a response from calling myself')
+      });
   }
-  _updateOrCreateGameObject(keypairs, gameId = 0) {
+
+  _updateOrCreateGameObject = (keypairs, gameId = 0) => {
+
     let currentGame = this._gameObjects[gameId];
+
     // let backup = this.cloneGameObject(this._gameObjects);
     try {
+
       Object.assign(currentGame, keypairs);
       this._initializeGame();
     } catch (err) {
-      if (err) {
-        errorHandler(err, "updateGameObject could not update the gameObject");
-        this.resetCurrentGame(this._emptyGameObject, gameId);
-      }
-      errorHandler(err, 'err is false in updateGameObject function');
+
+      ClientLib.errorHandler(err, "updateGameObject could not update the gameObject");
+      this.resetCurrentGame(this._emptyGameObject, gameId);
     }
+
   }
+
   resetCurrentGame(backup = this._emptyGameObject, gameId) {
     //TODO, this basically wipes your game.
     Object.assign(this._gameObjects[gameId], backup);
@@ -79,21 +90,34 @@ class Clientgame {
 
   updateTheView(gameObject) {
     //TODO make sure gameObject matches with state..
-    this.state.stateChanger(gameObject);
+    this.stateChanger(gameObject);
   }
+
   /**
    * this should set up all the variables a game needs
    * secretword and currentwordview is a must.
    */
-  _intializeGame() {
+  _initializeGame() {
     try {
-      this.setCurrentWordView(this._gameObjects.secretWord);
+      this._setCurrentWordView(this._gameObjects[this.latestGameId].secretWord);
     } catch (err) {
-      errorHandler(err, 'error with client initializing the game');
-      return err;
+      ClientLib.errorHandler(err, 'error with client initializing the game');
     }
     return null;
   }
+
+  _setCurrentWordView(secretWord) {
+    if (!secretWord || !secretWord.length) {
+      ClientLib.errorHandler(null, 'secretword is not there. check your word generation')
+    }
+    let gameId = this._getCurrentGameId();
+    this._gameObjects[gameId].currentWordView = secretWord.split('');
+  }
+
+  //TODO updatingcurrentwordview can ocme later
+
+  _getCurrentGameId = () => this._gameObjects.length - 1;
+
   isGuessAWord(guess) {
     if (!guess) return null;
     return (guess.length > 1)
@@ -108,13 +132,32 @@ class Clientgame {
   }
 
   submitChar(guess) {
-
+    if (this.isCharGood(guess)) {
+      //update game worldview
+      this._updateCurrentWordView()
+      console.log('yeah');
+      //condition that guess is correct
+    } else {
+      //condition that guess is wrong
+      console.log('you should decrease your state of guess');
+      this.stateChanger(--this._gameObjects[this.latestGameId].currentStages);
+    }
   }
 
+  isCharGood(guess) {
+    return !!(this.currentGame.currentWordView.includes(guess));
+  }
+
+  _updateCurrentWordView() {
+    let currentWordView = this.currentGame.currentWordView;
+    console.log(currentWordView, 'dkjfkdj')
+    this._gameObjects[this.latestGameId].currentWordView = currentWordView;
+    this.stateChanger({ currentWordView });
+  }
   //this function is not used or ready for primetime.
   cloneGameObject(gameObject) {
     let backup = {};
-    errorHandler(gameObject);
+    // ClientLib.errorHandler(gameObject);
     //TODO do a deepCopy of gameObject.
     return backup
   }

@@ -10,4 +10,9 @@ class Player {
   makeACharGuess(char) {
     this.GameInstance.submitGuess(char);
   }
+  setGameInstance(GameInstance) {
+    this.GameInstance = GameInstance;
+  }
 }
+
+export default Player;

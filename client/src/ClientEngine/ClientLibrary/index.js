@@ -1,9 +1,8 @@
 import { errorHandler } from './errorHandler';
 
-const getRulesetBasedOnDifficulty = (difficulty) => {
+const getRulesetBasedOnDifficulty = (state) => {
   let ruleset = {};
-
-  switch (difficulty) {
+  switch (Number(state.difficulty)) {
     case 2:
       ruleset = {
         difficulty: 2,
@@ -22,18 +21,22 @@ const getRulesetBasedOnDifficulty = (difficulty) => {
       ruleset = {
         difficulty: 6,
         minLength: 7,
-        maxLength: 8,
+        maxLength: 20,
       }
       break;
     case 8:
       ruleset = {
         difficulty: 6,
         minLength: 8,
-        maxLenght: 12
+        maxLength: 30
       }
       break;
     default:
-      return null
+      return {
+        difficulty: 6,
+        minLength: 8,
+        maxLength: 12
+      }
   }
 
   return ruleset;

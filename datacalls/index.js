@@ -23,11 +23,16 @@ const getDictionaryWord = (options) => {
 // validates query. the query must have all 5 properties.
 const validateQueryForWordGeneration = (req, res, next) => {
   let options = req.query;
+  console.log(options);
   let containsAllParams = options.difficulty && options.start
     && options.count && options.minLength && options.maxLength;
 
-  if (containsAllParams) return next();
-  res.redirect('/');
+  if (containsAllParams) {
+    return next()
+  } else {
+    console.log('broke at stage Validatequery for word generation. it doensnt have all 6 keys');
+    res.redirect('/');
+  }
 
 }
 
@@ -36,8 +41,10 @@ const validateQueryForWordGeneration = (req, res, next) => {
 const transformQueryForWordGeneration = (req, res, next) => {
   let options = req.query
   for (let key in options) {
-    let num = options[key] * 1
+    let num = options[key] * 1;
+    debugger;
     if (!Number.isNaN(num)) {
+      debugger;
       options[key] = num;
     }
   }
