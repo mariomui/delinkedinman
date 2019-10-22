@@ -6,55 +6,70 @@ import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-
-    backgroundColor: theme.palette.background.paper,
+  appBar: {
+    width: '90vw'
   },
   bottomTabs: {
     background: 'transparent',
     width: '100vw'
   },
   singleTab: {
-    fontSize: '3rem',
+    fontSize: '2rem',
+    padding: 'auto .2em 0em .2em',
+    minWidth: '.2em',
+    marginRight: '1em',
+    borderBottom: '10px solid black',
+
+  },
+  MuiTabWrapper: {
     padding: '0px',
-    minWidth: '10px',
-    marginRight: '1em'
+    background: 'green'
+
   },
   tabBar: {
     display: 'flex',
   },
+  charTab: {
+    background: 'blue'
+  }
 
 }));
 
 const Board = (props) => {
-  const { currentWordView } = props;
+  const { currentWordView, secretWord } = props;
   const classes = useStyles({ length: currentWordView.length });
   return (
+
     <div className={classes.root} >
       <div className={classes.tabBar}>
         {currentWordView.map((item, i) => {
           return (
             <CharTab
+              className={classes.charTab}
               item={item}
               index={i}
-              value={item}
+              // value={item}
+              secretWord={secretWord}
               itemLength={currentWordView.length}
             />
           );
         })}
       </div>
-      <AppBar position="relative" color="default">
+
+      <AppBar className={classes.appBar} position="relative" color="default">
         <Tabs className={classes.bottomTabs}
           indicatorColor="primary"
           textColor="primary"
           centered={true}
+          value={secretWord}
         >
           {/* These are all the individual tab in the bottom */}
           {currentWordView.map((item, index) => {
             return (
               <Tab
                 className={classes.singleTab}
-                label={`${item}`}>
+                value={secretWord}
+                label={`${item === '~' ? secretWord[index] : ' '}`}>
               </Tab>);
           })};
         </Tabs>

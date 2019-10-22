@@ -7,13 +7,16 @@ import { makeStyles } from '@material-ui/styles'
 const useStyles = makeStyles(
   (theme) => ({
     'box': {
-      'padding': '0 auto 0 2em'
+      'padding': '0 auto 0 2em',
+      '>span': {
+        borderBottom: '10px solid black'
+      }
     }
   }));
 
 const CharTab = (props) => {
   const classes = useStyles();
-  const { index, value, item, itemLength } = props;
+  const { index, secretWord, item, itemLength } = props;
   return (
     <Typography
       component="div"
@@ -21,7 +24,7 @@ const CharTab = (props) => {
     // id={`scrollable-auto-tabpanel-${index}`}
     // aria-labelledby={`scrollable-auto-tab-${index}`}
     >
-      <Box className={classes.box} p={`${100 / itemLength}%`}>{item}</Box>
+      <Box className={classes.box} p={`${100 / itemLength}%`}>{item === '~' ? secretWord[index] : null}</Box>
 
     </Typography>);
 }

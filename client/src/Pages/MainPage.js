@@ -90,7 +90,7 @@ class MainPage extends Component {
 
   render() {
     const { classes } = this.props
-    let { currentWordView } = this.state;
+    let { currentWordView, secretWord } = this.state;
     let greet = <IntroText />
     let greetButton = <GenerateButton handleSave={this.handleSave} />
     let reset = <Button onClick={this.reset}>Reset</Button>
@@ -104,7 +104,7 @@ class MainPage extends Component {
             justify="center"
             alignItems="center"
           >
-            {this.state.hasGameStarted ? <Board currentWordView={currentWordView} /> : null}
+            {this.state.hasGameStarted ? <Board secretWord={secretWord} currentWordView={currentWordView} /> : null}
             {this.state.hasGameStarted ? reset : null}
 
             {/* <Button className={classes.button}> Generate</Button> */}
