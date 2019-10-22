@@ -140,11 +140,15 @@ class Clientgame {
       //condition that guess is correct
     } else {
       //condition that guess is wrong
-      console.log('you should decrease your state of guess');
-      this.stateChanger(--this._gameObjects[this.latestGameId].currentStages);
+      let currentStages = this._decreaseStages();
+      this.stateChanger({ currentStages });
     }
   }
-
+  _decreaseStages() {
+    let { currentStages } = this.currentGame
+    this.currentGame.currentStages = currentStages - 1;
+    return currentStages - 1;
+  }
   isCharGood(guess) {
     return !!(this.currentGame.currentWordView.includes(guess));
   }
