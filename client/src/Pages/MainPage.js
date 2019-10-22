@@ -12,11 +12,35 @@ import { styles } from '../assets/PageStyles/MainPage.theme'
 
 import Player from '../ClientEngine/Player'
 import { errorHandler } from '../ClientEngine/ClientLibrary/errorHandler';
-
+import { Redirect } from 'react-router-dom';
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
+    let startingState = {
+      count: 35,
+      difficulty: 2,
+      currentStages: 7,
+      secretWord: '',
+      currentWordView: [],
+      hasGameStarted: false,
+      gameType: '',
+      loggedIn: false,
+      PlayerInstance: null,
+      GameInstance: null,
+      startingState: {
+        count: 35,
+        difficulty: 2,
+        currentStages: 7,
+        secretWord: '',
+        currentWordView: [],
+        hasGameStarted: false,
+        gameType: '',
+        loggedIn: false,
+        PlayerInstance: null,
+        GameInstance: null
+      }
+    }
     this.state = {
       count: 35,
       difficulty: 2,
@@ -27,7 +51,9 @@ class MainPage extends Component {
       gameType: '',
       loggedIn: false,
       PlayerInstance: null,
-      GameInstance: null
+      GameInstance: null,
+      startingState,
+
     }
   }
   componentDidMount() {
@@ -83,11 +109,9 @@ class MainPage extends Component {
   }
 
   reset = () => {
-    this.setState({
-      hasGameStarted: false
-    })
-  }
 
+    this.setState(this.state.startingState);
+  }
   render() {
     const { classes } = this.props
     let { currentWordView, secretWord } = this.state;
@@ -106,7 +130,7 @@ class MainPage extends Component {
           >
             {this.state.hasGameStarted ? <Board secretWord={secretWord} currentWordView={currentWordView} /> : null}
             {this.state.hasGameStarted ? reset : null}
-
+            {this.state.currentStages === 0 ? <Redirect to='/LosePage' /> : null}
             {/* <Button className={classes.button}> Generate</Button> */}
             {!this.state.hasGameStarted ? greet : null}
             {!this.state.hasGameStarted ? greetButton : null}

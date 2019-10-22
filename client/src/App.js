@@ -1,4 +1,5 @@
 import React from 'react';
+import { LosePage } from './Pages/LosePage'
 // import { MuiThemeProvider } from "@material-ui/core/styles";
 // import theme from "./MaterialUI/theme";
 
@@ -17,9 +18,9 @@ const App = () => {
           <Route exact path='/'
             component={HomePage}
           />
-          {/* <Route path='/nope'
-            component={Modal}
-          /> */}
+          <Route path='/LosePage'
+            component={LosePage}
+          />
         </Switch>
       </Router>
       {/* </MuiThemeProvider> */}

@@ -24,7 +24,7 @@ const CharTab = (props) => {
     // id={`scrollable-auto-tabpanel-${index}`}
     // aria-labelledby={`scrollable-auto-tab-${index}`}
     >
-      <Box className={classes.box} p={`${100 / itemLength}%`}>{item === '~' ? secretWord[index] : null}</Box>
+      <Box key={index} className={classes.box} p={`${100 / itemLength}%`}>{item === '~' ? secretWord[index] : null}</Box>
 
     </Typography>);
 }

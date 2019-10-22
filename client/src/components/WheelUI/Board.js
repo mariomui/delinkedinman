@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   singleTab: {
     fontSize: '2rem',
     padding: 'auto .2em 0em .2em',
-    minWidth: '.2em',
+    minWidth: '5vw',
     marginRight: '1em',
     borderBottom: '10px solid black',
 
@@ -47,6 +47,7 @@ const Board = (props) => {
             <CharTab
               className={classes.charTab}
               item={item}
+              key={i + 'x'}
               index={i}
               // value={item}
               secretWord={secretWord}
@@ -68,6 +69,7 @@ const Board = (props) => {
             return (
               <Tab
                 className={classes.singleTab}
+                key={index}
                 value={secretWord}
                 label={`${item === '~' ? secretWord[index] : ' '}`}>
               </Tab>);
