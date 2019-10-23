@@ -39,7 +39,8 @@ class MainPage extends Component {
         loggedIn: false,
         PlayerInstance: null,
         GameInstance: null
-      }
+      },
+      guess: ''
     }
     this.state = {
       count: 35,
@@ -53,10 +54,12 @@ class MainPage extends Component {
       PlayerInstance: null,
       GameInstance: null,
       startingState,
+      guess: '',
 
     }
   }
   componentDidMount() {
+
     if (!this.state.PlayerInstance) {
       this.setState({
         PlayerInstance: new Player({ name: 'Mario', GameInstance: null })
@@ -112,6 +115,10 @@ class MainPage extends Component {
 
     this.setState(this.state.startingState);
   }
+
+  handleGuess = (guess) => {
+    this.setState({ guess });
+  }
   render() {
     const { classes } = this.props
     let { currentWordView, secretWord } = this.state;
@@ -120,7 +127,6 @@ class MainPage extends Component {
     let reset = <Button onClick={this.reset}>Reset</Button>
     return (
       <div>
-
         <Container className={classes.container} >
           <Grid
             container
@@ -128,16 +134,16 @@ class MainPage extends Component {
             justify="center"
             alignItems="center"
           >
-            {this.state.hasGameStarted ? <Board secretWord={secretWord} currentWordView={currentWordView} /> : null}
-
+            {this.state.hasGameStarted ?
+              <Board secretWord={secretWord} currentWordView={currentWordView} /> : null}
             {this.state.hasGameStarted ? reset : null}
             {this.state.currentStages === 0 ? <Redirect to='/LosePage' /> : null}
             {/* <Button className={classes.button}> Generate</Button> */}
             {!this.state.hasGameStarted ? greet : null}
             {!this.state.hasGameStarted ? greetButton : null}
-            <Grid item xs zeroMinWidth>
-              <WheelHUD />
-            </Grid>
+            {this.state.hasGameStarted ? <Grid item xs zeroMinWidth>
+              <WheelHUD handleGuess={this.handleGuess} guess={this.state.guess} />
+            </Grid> : null}
           </Grid>
 
         </Container>
