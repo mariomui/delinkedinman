@@ -1,14 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from "@material-ui/core/Button";
 import { makeStyles } from '@material-ui/styles'
 import { createKeyboardUIObject } from '../../assets/DataEntry.theme'
-import { WSAEINVALIDPROCTABLE } from 'constants';
 // import { Grid } from '@material-ui/core';
 
-const pressEnter = (e) => {
-  console.log('hi');
-}
+
 
 
 let initialCss = {
@@ -37,16 +34,41 @@ const DataEntry = (props) => {
   const special = ['Space', 'Enter', 'Backspace']
   // let { handleClick } = props;
   const [word, enterData] = useState('');
-  // const [references, recordReferences] = useState(null);
-  const handleKeyPress = (e) => {
+
+  let sideEffect = special.length;
+
+  const clearWord = () => {
+    enterData('');
+    props.handleGuess('');
+  }
+  const pressEnter = (e) => {
+    if (e.target.textContent === "Backspace") {
+      props.handleGuess('');
+      enterData('');
+    } else if (e.target.textContent === "Enter") {
+      word.length && props.submitFinalGuess(word);
+    }
+    clearWord();
+  }
+
+  const handleKeyPress = (e, value) => {
     let newWord = word;
     let newChar = null;
-    newChar = e && e.currentTarget && e.currentTarget.value
-    newChar = newChar ? newChar : e.value;
-    enterData(newWord += newChar);
+    if (e !== null) {
+
+      newChar = e && e.currentTarget && e.currentTarget.value
+      newChar = newChar ? newChar : e.value;
+      enterData(newWord += newChar);
+    } else {
+      enterData(newWord += value)
+    }
     props.handleGuess(newWord);
+
   }
-  let sideEffect = special.length;
+  useEffect(() => {
+
+    handleKeyPress(null, props.crazyKeyEntry);
+  }, [props.crazyKeyEntry])
 
   const appendTo = (jsx, sideEffect) => {
     let component = null;
@@ -69,39 +91,29 @@ const DataEntry = (props) => {
     if (e && e.value) {
       refs[e.value] = e;
     } else {
-      console.log('kfjdkfj')
+      console.log('Loggin refs. should be 26 for each alphabet')
     }
   }
 
-  const fakeThunk = (massive) => {
-    props.handleKeyboardRefs(refs);
-
-    return function () {
-
-
-      return massive;
-    }
-  }
 
   const classes = useStyles();
-
+  // let oneLoad = window.seemyrefs ? createAndLogRef : null
   return (
     <ButtonGroup className={classes.buttonGroup}>
       {
-        fakeThunk(
-          mapping.map((row) => {
-            return appendTo(
-              row.map((item) => {
-                return (
-                  <Button value={item}
-                    ref={createAndLogRef}
-                    className={classes[`key${item}`]}
-                    onClick={handleKeyPress} > {item}
-                  </Button>
-                );
-              }), --sideEffect)
-          })
-        )()
+        mapping.map((row) => {
+          return appendTo(
+            row.map((item) => {
+              return (
+                <Button value={item}
+                  ref={createAndLogRef}
+                  className={classes[`key${item}`]}
+                  onClick={handleKeyPress} >
+                  {item}
+                </Button>
+              );
+            }), --sideEffect)
+        })
       }
     </ButtonGroup >)
 }

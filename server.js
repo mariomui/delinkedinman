@@ -113,13 +113,10 @@ v1.get('/testFind', (req, res) => {
 })
 
 v1.get('/test', (req, res) => {
-  console.log('i was hti');
   return res.send({ 'hi': 'done' })
 })
-
 v1.post('/test', (req, res) => {
-  console.log(req.body);
-  res.status(200);
+  res.status(200).json(req.body);
 })
 
 v1.post('/user', protect, (req, res) => {

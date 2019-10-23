@@ -18,7 +18,6 @@ const parseMatrix = (mapping) => {
   });
   return flattenedMatrix;
 }
-console.log(parseMatrix([[1, 2, 3], [1, 2, 3]]));
 
 module.exports = {
   parseMatrix

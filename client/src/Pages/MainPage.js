@@ -14,34 +14,36 @@ import Player from '../ClientEngine/Player'
 import { errorHandler } from '../ClientEngine/ClientLibrary/errorHandler';
 import { Redirect } from 'react-router-dom';
 import WheelHUD from '../components/WheelUI/WheelHUD'
+
+let startingState = {
+  count: 35,
+  difficulty: 2,
+  currentStages: 7,
+  secretWord: '',
+  currentWordView: [],
+  hasGameStarted: false,
+  gameType: '',
+  loggedIn: false,
+  PlayerInstance: null,
+  GameInstance: null,
+  startingState: {
+    count: 35,
+    difficulty: 2,
+    currentStages: 7,
+    secretWord: '',
+    currentWordView: [],
+    hasGameStarted: false,
+    gameType: '',
+    loggedIn: false,
+    PlayerInstance: null,
+    GameInstance: null
+  },
+  guess: ''
+}
 class MainPage extends Component {
   constructor(props) {
     super(props);
-    let startingState = {
-      count: 35,
-      difficulty: 2,
-      currentStages: 7,
-      secretWord: '',
-      currentWordView: [],
-      hasGameStarted: false,
-      gameType: '',
-      loggedIn: false,
-      PlayerInstance: null,
-      GameInstance: null,
-      startingState: {
-        count: 35,
-        difficulty: 2,
-        currentStages: 7,
-        secretWord: '',
-        currentWordView: [],
-        hasGameStarted: false,
-        gameType: '',
-        loggedIn: false,
-        PlayerInstance: null,
-        GameInstance: null
-      },
-      guess: ''
-    }
+
     this.state = {
       count: 35,
       difficulty: 2,
@@ -74,9 +76,11 @@ class MainPage extends Component {
   componentDidUpdate() {
     console.log('updating');
   }
+
   stateChanger = state => {
     this.setState(state);
   }
+
   handleSave = (state) => {
     let Game = null;
     let PlayerInstance = null;
@@ -116,9 +120,21 @@ class MainPage extends Component {
     this.setState(this.state.startingState);
   }
 
+  //stores the current guess for save state;
   handleGuess = (guess) => {
     this.setState({ guess });
   }
+
+  submitFinalGuess = (charOrWord) => {
+    const self = this;
+    if (!self.state.PlayerInstance) console.log('no player found');
+    if (charOrWord.length === 1) {
+      self.state.PlayerInstance.makeACharGuess(charOrWord);
+    } else {
+      self.state.PlayerInstance.makeAWordGuess(charOrWord);
+    }
+  }
+
   render() {
     const { classes } = this.props
     let { currentWordView, secretWord } = this.state;
@@ -137,13 +153,20 @@ class MainPage extends Component {
             {this.state.hasGameStarted ?
               <Board secretWord={secretWord} currentWordView={currentWordView} /> : null}
             {this.state.hasGameStarted ? reset : null}
+
             {this.state.currentStages === 0 ? <Redirect to='/LosePage' /> : null}
-            {/* <Button className={classes.button}> Generate</Button> */}
+
             {!this.state.hasGameStarted ? greet : null}
+
             {!this.state.hasGameStarted ? greetButton : null}
-            {this.state.hasGameStarted ? <Grid item xs zeroMinWidth>
-              <WheelHUD handleGuess={this.handleGuess} guess={this.state.guess} />
-            </Grid> : null}
+
+            {this.state.hasGameStarted ?
+              <Grid item xs zeroMinWidth>
+                <WheelHUD
+                  submitFinalGuess={this.submitFinalGuess}
+                  handleGuess={this.handleGuess}
+                  guess={this.state.guess} />
+              </Grid> : null}
           </Grid>
 
         </Container>

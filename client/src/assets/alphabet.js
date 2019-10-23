@@ -1,8 +1,8 @@
 const firstRow = 'qwertyuiop';
 
-const secondRow = 'asdfghjklk';
+const secondRow = 'asdfghjkl';
 
-const thirdRow = 'xcvbnm'
+const thirdRow = 'zxcvbnm'
 
 export default {
   firstRow,
