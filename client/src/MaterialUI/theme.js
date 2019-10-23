@@ -1,6 +1,7 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 import colors from './colors'
 import { white } from "ansi-colors";
+import { green } from "@material-ui/core/colors";
 // import { colors } from "@material-ui/core";
 
 //basic overrides of how the MUI assets look
@@ -22,5 +23,6 @@ export default createMuiTheme({
         height: 65 + 'px'
       }
     },
+
   }
 });

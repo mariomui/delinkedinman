@@ -13,7 +13,7 @@ import { styles } from '../assets/PageStyles/MainPage.theme'
 import Player from '../ClientEngine/Player'
 import { errorHandler } from '../ClientEngine/ClientLibrary/errorHandler';
 import { Redirect } from 'react-router-dom';
-
+import WheelHUD from '../components/WheelUI/WheelHUD'
 class MainPage extends Component {
   constructor(props) {
     super(props);
@@ -129,11 +129,15 @@ class MainPage extends Component {
             alignItems="center"
           >
             {this.state.hasGameStarted ? <Board secretWord={secretWord} currentWordView={currentWordView} /> : null}
+
             {this.state.hasGameStarted ? reset : null}
             {this.state.currentStages === 0 ? <Redirect to='/LosePage' /> : null}
             {/* <Button className={classes.button}> Generate</Button> */}
             {!this.state.hasGameStarted ? greet : null}
             {!this.state.hasGameStarted ? greetButton : null}
+            <Grid item xs zeroMinWidth>
+              <WheelHUD />
+            </Grid>
           </Grid>
 
         </Container>
