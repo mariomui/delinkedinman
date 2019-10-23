@@ -5,10 +5,12 @@ class Player {
     this.GameInstance = GameInstance
   }
   makeAWordGuess(word) {
-    this.GameInstance.submitGuess(word);
+    return this.GameInstance.submitGuess(word);
+
   }
   makeACharGuess(char) {
-    this.GameInstance.submitGuess(char);
+    return this.GameInstance.submitGuess(char);
+
   }
   setGameInstance(GameInstance) {
     this.GameInstance = GameInstance;

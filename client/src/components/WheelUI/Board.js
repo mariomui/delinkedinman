@@ -7,11 +7,18 @@ import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    width: '90vw'
+    width: '100vw',
+    postion: 'absolute',
+    left: '0px',
+    top: '70vh',
+    // padding: '8vh 10vw auto 10vw',
+    minHeight: '22vh'
   },
   bottomTabs: {
     background: 'transparent',
-    width: '100vw'
+    width: '90vw',
+    marginTop: '10vh',
+
   },
   singleTab: {
     fontSize: '2rem',
@@ -23,11 +30,11 @@ const useStyles = makeStyles((theme) => ({
   },
   MuiTabWrapper: {
     padding: '0px',
-    background: 'green'
 
   },
   tabBar: {
     display: 'flex',
+
   },
   charTab: {
     background: 'blue'
@@ -57,7 +64,7 @@ const Board = (props) => {
         })}
       </div>
 
-      <AppBar className={classes.appBar} position="relative" color="default">
+      <AppBar className={classes.appBar} color="default">
         <Tabs className={classes.bottomTabs}
           indicatorColor="primary"
           textColor="primary"

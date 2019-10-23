@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ScoreDisplay from './ScoreDisplay';
 import DataEntry from './DataEntry';
 import DisplayGuess from './DisplayGuess';
+import ScoreBoard from './ScoreBoard';
 
 const WheelHUD = (props) => {
   useEffect(() => {
@@ -34,7 +35,6 @@ const WheelHUD = (props) => {
       style={{ position: 'absolute', top: '-1000px', zIndex: -1000 }}
       onChange={record}></input>
 
-    <ScoreDisplay></ScoreDisplay>
 
     <DataEntry
       // handleKeyboardRefs={handleKeyboardRefs}
@@ -42,8 +42,7 @@ const WheelHUD = (props) => {
       crazyKeyEntry={entry}
       handleGuess={props.handleGuess}>
     </DataEntry>
-
-    <ScoreDisplay></ScoreDisplay>
+    <ScoreBoard badGuesses={props.badGuesses} currentStages={props.currentStages} />
   </div >);
 }
 

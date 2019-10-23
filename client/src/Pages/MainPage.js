@@ -18,7 +18,7 @@ import WheelHUD from '../components/WheelUI/WheelHUD'
 let startingState = {
   count: 35,
   difficulty: 2,
-  currentStages: 7,
+  currentStages: 6,
   secretWord: '',
   currentWordView: [],
   hasGameStarted: false,
@@ -29,14 +29,15 @@ let startingState = {
   startingState: {
     count: 35,
     difficulty: 2,
-    currentStages: 7,
+    currentStages: 6,
     secretWord: '',
     currentWordView: [],
     hasGameStarted: false,
     gameType: '',
     loggedIn: false,
     PlayerInstance: null,
-    GameInstance: null
+    GameInstance: null,
+    badGuesses: []
   },
   guess: ''
 }
@@ -47,7 +48,7 @@ class MainPage extends Component {
     this.state = {
       count: 35,
       difficulty: 2,
-      currentStages: 7,
+      currentStages: 6,
       secretWord: '',
       currentWordView: [],
       hasGameStarted: false,
@@ -57,6 +58,7 @@ class MainPage extends Component {
       GameInstance: null,
       startingState,
       guess: '',
+      badGuesses: []
 
     }
   }
@@ -127,11 +129,18 @@ class MainPage extends Component {
 
   submitFinalGuess = (charOrWord) => {
     const self = this;
+    let state = null;
     if (!self.state.PlayerInstance) console.log('no player found');
     if (charOrWord.length === 1) {
-      self.state.PlayerInstance.makeACharGuess(charOrWord);
+      state = self.state.PlayerInstance.makeACharGuess(charOrWord);
     } else {
       self.state.PlayerInstance.makeAWordGuess(charOrWord);
+    }
+    //error if state = null;
+    if (state === false) {
+      this.setState({
+        badGuesses: this.state.badGuesses.concat(charOrWord)
+      })
     }
   }
 
@@ -141,6 +150,9 @@ class MainPage extends Component {
     let greet = <IntroText />
     let greetButton = <GenerateButton handleSave={this.handleSave} />
     let reset = <Button onClick={this.reset}>Reset</Button>
+
+    let isGameLost = (this.state.currentStages === -1) && this.state.guess !== this.state.secretWord;
+
     return (
       <div>
         <Container className={classes.container} >
@@ -154,7 +166,8 @@ class MainPage extends Component {
               <Board secretWord={secretWord} currentWordView={currentWordView} /> : null}
             {this.state.hasGameStarted ? reset : null}
 
-            {this.state.currentStages === 0 ? <Redirect to='/LosePage' /> : null}
+            {/* // TODO This game logic shouldnt be here. */}
+            {isGameLost ? <Redirect to='/LosePage' /> : null}
 
             {!this.state.hasGameStarted ? greet : null}
 
@@ -165,7 +178,10 @@ class MainPage extends Component {
                 <WheelHUD
                   submitFinalGuess={this.submitFinalGuess}
                   handleGuess={this.handleGuess}
-                  guess={this.state.guess} />
+                  guess={this.state.guess}
+                  currentStages={this.state.currentStages}
+                  badGuesses={this.state.badGuesses}
+                />
               </Grid> : null}
           </Grid>
 

@@ -41,6 +41,7 @@ const DataEntry = (props) => {
     enterData('');
     props.handleGuess('');
   }
+
   const pressEnter = (e) => {
     if (e.target.textContent === "Backspace") {
       props.handleGuess('');

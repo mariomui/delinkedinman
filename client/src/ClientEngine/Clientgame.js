@@ -11,7 +11,7 @@ class Clientgame {
       playerInfoObject,
       secretWord: null,
       difficulty: state.difficulty,
-      currentStages: 7, //TODO set these according to gametype
+      currentStages: 5, //TODO set these according to gametype
       gameType: state.gameType,
       currentWordView: [],
       gameNo: 0,
@@ -123,32 +123,39 @@ class Clientgame {
     return (guess.length > 1)
   }
 
-  submitGuess(guess) {
+  submitGuess = (guess) => {
     if (this.isGuessAWord(guess) === null) return null;
+
     if (this.isGuessAWord(guess)) {
-      this.submitWord(guess);
+      // this.submitWord(guess);
+    } else {
+      return this.submitChar(guess);
     }
-    return this.submitChar(guess);
   }
 
-  submitChar(guess) {
+  submitChar = (guess) => {
     if (this.isCharGood(guess)) {
       //update game worldview
       let updateds = this.stripWordView(guess);
       this._updateCurrentWordView(updateds)
       //TODO make a global syncing class.
       //condition that guess is correct
+      return true;
     } else {
       //condition that guess is wrong
-      let currentStages = this._decreaseStages();
-      this.stateChanger({ currentStages });
+      this._decreaseStages();
+      return false;
     }
   }
-  _decreaseStages() {
-    let { currentStages } = this.currentGame
-    this.currentGame.currentStages = currentStages - 1;
-    return currentStages - 1;
+
+  _decreaseStages = () => {
+    this.currentGame.currentStages
+    this.currentGame.currentStages = this.currentGame.currentStages - 1
+
+    this.stateChanger({ currentStages: this.currentGame.currentStages });
+
   }
+
   isCharGood(guess) {
     return !!(this.currentGame.currentWordView.includes(guess));
   }
