@@ -1,3 +1,5 @@
+//deprecated
+
 const { generateRandomNumbers } = require('../serverUtils');
 
 class Game {

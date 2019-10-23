@@ -27,7 +27,7 @@ class GenerateButton extends Component {
     super(props);
     this.state = {
       difficulty: null,
-      currentStages: 7,
+      currentStages: 6,
       secretWord: '',
       currentWordView: [],
       open: false,

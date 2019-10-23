@@ -91,7 +91,7 @@ class MainPage extends Component {
       const gameObject = { difficulty: Number(state.difficulty), gameType: state.gameType }
       Game = new Clientgame(gameObject, null, this.stateChanger);
       PlayerInstance = new Player({ name: 'mario', GameInstance: Game });
-      console.log('did i reach here');
+
       state.PlayerInstance = PlayerInstance;
       window.Player = PlayerInstance;
     } else {
@@ -118,8 +118,7 @@ class MainPage extends Component {
   }
 
   reset = () => {
-
-    this.setState(this.state.startingState);
+    this.setState(startingState);
   }
 
   //stores the current guess for save state;
@@ -130,11 +129,11 @@ class MainPage extends Component {
   submitFinalGuess = (charOrWord) => {
     const self = this;
     let state = null;
-    if (!self.state.PlayerInstance) console.log('no player found');
+    if (!self.state.PlayerInstance) return console.log('no player found');
     if (charOrWord.length === 1) {
       state = self.state.PlayerInstance.makeACharGuess(charOrWord);
     } else {
-      self.state.PlayerInstance.makeAWordGuess(charOrWord);
+      state = !!self.state.PlayerInstance.makeAWordGuess(charOrWord);
     }
     //error if state = null;
     if (state === false) {
@@ -151,7 +150,7 @@ class MainPage extends Component {
     let greetButton = <GenerateButton handleSave={this.handleSave} />
     let reset = <Button onClick={this.reset}>Reset</Button>
 
-    let isGameLost = (this.state.currentStages === -1) && this.state.guess !== this.state.secretWord;
+    let isGameLost = (this.state.currentStages === 0) && this.state.guess !== this.state.secretWord;
 
     return (
       <div>

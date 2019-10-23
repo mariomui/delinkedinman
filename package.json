@@ -11,7 +11,8 @@
     "build:only": "cd client && npm run build",
     "test": "jest",
     "ngrok": "ngrok",
-    "productiontest": "node ngrok.js"
+    "productiontest": "node ngrok.js",
+    "build:prod": "npm run start:runServer && npm run build:only"
   },
   "repository": "git+https://github.com/mariomui/delinkedinman.git",
   "keywords": [],

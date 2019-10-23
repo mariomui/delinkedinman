@@ -11,7 +11,7 @@ class Clientgame {
       playerInfoObject,
       secretWord: null,
       difficulty: state.difficulty,
-      currentStages: 5, //TODO set these according to gametype
+      currentStages: 6, //TODO set these according to gametype
       gameType: state.gameType,
       currentWordView: [],
       gameNo: 0,
@@ -22,7 +22,7 @@ class Clientgame {
     this._emptyGameObject = {
       playerInfoObject,
       difficulty: state.difficulty,
-      currentStages: 7, //TODO set these according to gametype
+      currentStages: 6, //TODO set these according to gametype
       gameType: null,
       currentWordView: [],
       gameNo: 0,
@@ -118,9 +118,9 @@ class Clientgame {
 
   _getCurrentGameId = () => this._gameObjects.length - 1;
 
-  isGuessAWord(guess) {
-    if (!guess) return null;
-    return (guess.length > 1)
+  isGuessAWord(guess = null) {
+    if (guess === null) return null;
+    return (!!guess.length > 1)
   }
 
   submitGuess = (guess) => {
